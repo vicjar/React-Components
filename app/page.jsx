@@ -11,21 +11,17 @@ import {
   CSearchBar,
   CSelect,
   CTable,
-  CLabel,
   CTitle,
   CCheckbox,
   CRadio,
-  CTooltip,
   CSpinner,
   CModal,
   CDatePicker,
   CTreeView,
   CDropdown,
-  CAlert,
-  CSlider,
   ChartsSection,
 } from "@/components/caliente";
-import { FiPlus, FiFolder, FiFile, FiInfo, FiCheckCircle, FiAlertTriangle, FiBell } from "react-icons/fi";
+import { FiPlus, FiFolder, FiFile, FiBell } from "react-icons/fi";
 
 // ============================================================
 // Showcase Sections
@@ -160,7 +156,7 @@ function CardsSection() {
           </CCard>
         </Col>
         <Col md={4}>
-          <CCard title="Active Players" headerAction={<CLabel variant="success" pill>Live</CLabel>}>
+          <CCard title="Active Players" headerAction={<span className="badge bg-success rounded-pill">Live</span>}>
             <h3 className="fw-bold mb-1">8,432</h3>
             <small className="text-muted">Currently online</small>
           </CCard>
@@ -302,7 +298,7 @@ function TableSection() {
       header: "Status",
       render: (row) => {
         const colors = { Active: "success", Inactive: "secondary", Suspended: "danger" };
-        return <CLabel variant={colors[row.status] || "secondary"} pill>{row.status}</CLabel>;
+        return <span className={`badge bg-${colors[row.status] || "secondary"} rounded-pill`}>{row.status}</span>;
       },
     },
     { key: "winnings", header: "Winnings" },
@@ -349,38 +345,7 @@ function TableSection() {
   );
 }
 
-function LabelsSection() {
-  return (
-    <div className="showcase-section">
-      <span className="section-title">Labels / Badges</span>
-      <CCard title="Labels & Badges">
-        <div className="d-flex flex-wrap gap-2 mb-3">
-          <CLabel variant="caliente">Caliente</CLabel>
-          <CLabel variant="primary">Primary</CLabel>
-          <CLabel variant="secondary">Secondary</CLabel>
-          <CLabel variant="success">Success</CLabel>
-          <CLabel variant="danger">Danger</CLabel>
-          <CLabel variant="warning">Warning</CLabel>
-          <CLabel variant="info">Info</CLabel>
-          <CLabel variant="dark">Dark</CLabel>
-        </div>
-        <h6 className="fw-semibold mb-2" style={{ fontSize: "0.8125rem" }}>Pill Badges</h6>
-        <div className="d-flex flex-wrap gap-2 mb-3">
-          <CLabel variant="caliente" pill>VIP</CLabel>
-          <CLabel variant="success" pill>Online</CLabel>
-          <CLabel variant="danger" pill>Hot</CLabel>
-          <CLabel variant="info" pill>New</CLabel>
-        </div>
-        <h6 className="fw-semibold mb-2" style={{ fontSize: "0.8125rem" }}>Sizes</h6>
-        <div className="d-flex flex-wrap gap-2 align-items-center">
-          <CLabel variant="caliente" size="sm">Small</CLabel>
-          <CLabel variant="caliente" size="md">Medium</CLabel>
-          <CLabel variant="caliente" size="lg">Large</CLabel>
-        </div>
-      </CCard>
-    </div>
-  );
-}
+
 
 function TitlesSection() {
   return (
@@ -398,29 +363,7 @@ function TitlesSection() {
   );
 }
 
-function TooltipsSection() {
-  return (
-    <div className="showcase-section">
-      <span className="section-title">Tooltips</span>
-      <CCard title="Tooltips">
-        <div className="d-flex flex-wrap gap-3">
-          <CTooltip content="Top tooltip content" placement="top">
-            <CButton variant="outline-caliente" size="sm">Hover Top</CButton>
-          </CTooltip>
-          <CTooltip content="Right tooltip content" placement="right">
-            <CButton variant="outline-caliente" size="sm">Hover Right</CButton>
-          </CTooltip>
-          <CTooltip content="Bottom tooltip content" placement="bottom">
-            <CButton variant="outline-caliente" size="sm">Hover Bottom</CButton>
-          </CTooltip>
-          <CTooltip content="Left tooltip content" placement="left">
-            <CButton variant="outline-caliente" size="sm">Hover Left</CButton>
-          </CTooltip>
-        </div>
-      </CCard>
-    </div>
-  );
-}
+
 
 function SpinnersSection() {
   return (
@@ -616,105 +559,9 @@ function DropdownsSection() {
   );
 }
 
-function SlidersSection() {
-  const [volume, setVolume] = useState(65);
-  const [brightness, setBrightness] = useState(80);
-  const [betAmount, setBetAmount] = useState(250);
-  const [jackpotContrib, setJackpotContrib] = useState(15);
 
-  return (
-    <div className="showcase-section">
-      <span className="section-title">Sliders</span>
-      <Row>
-        <Col lg={6}>
-          <CCard title="Percentage Sliders" subtitle="Control values with real-time percentage display">
-            <CSlider
-              label="Sound Volume"
-              value={volume}
-              onChange={setVolume}
-              min={0}
-              max={100}
-              helpText="Adjust game sound effects"
-            />
-            <CSlider
-              label="Screen Brightness"
-              value={brightness}
-              onChange={setBrightness}
-              min={0}
-              max={100}
-              size="lg"
-            />
-            <CSlider
-              label="Jackpot Contribution"
-              value={jackpotContrib}
-              onChange={setJackpotContrib}
-              min={0}
-              max={50}
-              step={5}
-              helpText="Percentage of bet added to jackpot pool"
-            />
-          </CCard>
-        </Col>
-        <Col lg={6}>
-          <CCard title="Custom Range Sliders" subtitle="Different ranges and step values">
-            <CSlider
-              label="Bet Amount"
-              value={betAmount}
-              onChange={setBetAmount}
-              min={10}
-              max={1000}
-              step={10}
-              showPercentage={false}
-              helpText="Min $10 - Max $1000"
-            />
-            <CSlider
-              label="Small Slider"
-              value={50}
-              onChange={() => {}}
-              size="sm"
-            />
-            <CSlider
-              label="Disabled Slider"
-              value={75}
-              onChange={() => {}}
-              disabled
-              helpText="This slider is disabled"
-            />
-          </CCard>
-        </Col>
-      </Row>
-    </div>
-  );
-}
 
-function AlertsSection() {
-  const InfoIcon = () => <FiInfo size={18} />;
-  const CheckIcon = () => <FiCheckCircle size={18} />;
-  const AlertIcon = () => <FiAlertTriangle size={18} />;
 
-  return (
-    <div className="showcase-section">
-      <span className="section-title">Alerts</span>
-      <CCard title="Alert Messages">
-        <CAlert variant="caliente" icon={<InfoIcon />} title="Caliente Alert">
-          This is a custom Caliente Casino themed alert with an icon.
-        </CAlert>
-        <CAlert variant="success" icon={<CheckIcon />} title="Success!">
-          Your deposit of $500 has been processed successfully.
-        </CAlert>
-        <CAlert variant="warning" icon={<AlertIcon />} title="Warning">
-          Your account balance is running low. Please deposit funds.
-        </CAlert>
-        <CAlert variant="danger" dismissible title="Error">
-          Unable to process your withdrawal request. Please try again.
-        </CAlert>
-        <CAlert variant="info" dismissible>
-          New games available! Check out our latest slot machines.
-        </CAlert>
-      </CCard>
-    </div>
-  );
-}
 
 // ============================================================
 // Main Page
@@ -774,16 +621,12 @@ export default function ComponentShowcasePage() {
         />
 
         <ChartsSection />
-        <SlidersSection />
-        <AlertsSection />
         <ButtonsSection />
         <CardsSection />
         <FormsSection />
         <SearchBarSection />
         <TableSection />
-        <LabelsSection />
         <TitlesSection />
-        <TooltipsSection />
         <SpinnersSection />
         <ModalsSection />
         <DropdownsSection />
