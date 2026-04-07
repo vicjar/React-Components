@@ -4,6 +4,7 @@ import React from "react";
 import { Row, Col } from "reactstrap";
 import { CCard } from "./CCard";
 import { CChart, CALIENTE_CHART_COLORS } from "./CChart";
+import { CHeatmap, CWeeklyActivityHeatmap } from "./CHeatmap";
 
 // ============================================================
 // 1. Bar Chart - Monthly Revenue by Game Type
@@ -278,6 +279,84 @@ function SankeyChartExample() {
 }
 
 // ============================================================
+// 8. Heatmap Chart - Player Activity by Hour/Day
+// ============================================================
+
+function HeatmapChartExample() {
+  // Generate sample data: [hourIndex, dayIndex, playerCount]
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const hours = [
+    "12am", "2am", "4am", "6am", "8am", "10am",
+    "12pm", "2pm", "4pm", "6pm", "8pm", "10pm",
+  ];
+  
+  // Generate realistic casino activity data (higher on weekends/evenings)
+  const data = [];
+  for (let h = 0; h < hours.length; h++) {
+    for (let d = 0; d < days.length; d++) {
+      const isWeekend = d === 0 || d === 5 || d === 6;
+      const isEvening = h >= 6 && h <= 10;
+      const isPeakHours = h >= 8 && h <= 11;
+      
+      let baseValue = 50 + Math.random() * 30;
+      if (isWeekend) baseValue += 40;
+      if (isEvening) baseValue += 35;
+      if (isPeakHours && isWeekend) baseValue += 50;
+      if (h < 3) baseValue -= 30; // Lower in early morning
+      
+      data.push([h, d, Math.round(Math.max(10, baseValue))]);
+    }
+  }
+
+  return (
+    <CCard title="Heatmap Chart" subtitle="Player activity by hour and day of week">
+      <CHeatmap
+        data={data}
+        xAxisData={hours}
+        yAxisData={days}
+        height={350}
+        showLabel={true}
+        valueFormatter={(value) => value}
+      />
+    </CCard>
+  );
+}
+
+// ============================================================
+// 9. Weekly Activity Heatmap - Detailed Hour View
+// ============================================================
+
+function WeeklyActivityHeatmapExample() {
+  // Generate hourly data for each day
+  const data = [];
+  for (let h = 0; h < 24; h++) {
+    for (let d = 0; d < 7; d++) {
+      const isWeekend = d === 0 || d === 6;
+      const isNight = h >= 20 || h <= 4;
+      const isPeakEvening = h >= 18 && h <= 23;
+      
+      let value = 20 + Math.random() * 20;
+      if (isWeekend) value += 30;
+      if (isNight && isWeekend) value += 40;
+      if (isPeakEvening) value += 25;
+      if (h >= 4 && h <= 8) value -= 15;
+      
+      data.push([h, d, Math.round(Math.max(5, value))]);
+    }
+  }
+
+  return (
+    <CCard title="Weekly Activity Heatmap" subtitle="Hourly player distribution across the week">
+      <CWeeklyActivityHeatmap
+        data={data}
+        height={320}
+        valueFormatter={(value) => `${value} players`}
+      />
+    </CCard>
+  );
+}
+
+// ============================================================
 // Main Charts Section Export
 // ============================================================
 
@@ -298,6 +377,10 @@ export function ChartsSection() {
         <Col xl={6}><RadarChartExample /></Col>
       </Row>
       <SankeyChartExample />
+      <Row>
+        <Col xl={6}><HeatmapChartExample /></Col>
+        <Col xl={6}><WeeklyActivityHeatmapExample /></Col>
+      </Row>
     </div>
   );
 }

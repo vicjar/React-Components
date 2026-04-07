@@ -3,7 +3,7 @@
 import React from "react";
 import ReactEChartsCore from "echarts-for-react/lib/core";
 import * as echarts from "echarts/core";
-import { BarChart, LineChart, ScatterChart, RadarChart, SankeyChart } from "echarts/charts";
+import { BarChart, LineChart, ScatterChart, RadarChart, SankeyChart, HeatmapChart } from "echarts/charts";
 import {
   GridComponent,
   TooltipComponent,
@@ -21,6 +21,7 @@ echarts.use([
   ScatterChart,
   RadarChart,
   SankeyChart,
+  HeatmapChart,
   GridComponent,
   TooltipComponent,
   LegendComponent,

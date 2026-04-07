@@ -22,4 +22,5 @@ export { CDropdown } from "./CDropdown";
 export { CAlert } from "./CAlert";
 export { CSlider } from "./CSlider";
 export { CChart, CALIENTE_CHART_COLORS } from "./CChart";
+export { CHeatmap, CWeeklyActivityHeatmap, CMonthlyHeatmap, CCorrelationHeatmap } from "./CHeatmap";
 export { ChartsSection } from "./ChartsShowcase";
